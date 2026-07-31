@@ -1,0 +1,32 @@
+﻿@model lab_integrador.Models.ManufacturingProcess
+
+@{
+    ViewData["Title"] = "Eliminar Proceso de Fabricación";
+}
+
+<h1>Eliminar Proceso de Fabricación</h1>
+
+@if (ViewBag.IsInUse == true)
+{
+    <div class="alert alert-warning">
+        Este proceso está asociado a una o más órdenes de producción y no podrá eliminarse.
+    </div>
+}
+
+<h3>¿Está seguro de eliminar este proceso?</h3>
+<div class="card" style="max-width: 500px;">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Nombre</dt>
+            <dd class="col-sm-8">@Model.Name</dd>
+            <dt class="col-sm-4">Descripción</dt>
+            <dd class="col-sm-8">@Model.Description</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger" disabled="@(ViewBag.IsInUse == true)">Eliminar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
