@@ -1,8 +1,48 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-4">
+    <h1 class="display-6">Sistema de Órdenes de Producción</h1>
+    <p class="text-muted">Calzado Innovador S.A.</p>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center border-primary">
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.TotalOrders</h5>
+                <p class="card-text text-muted">Órdenes Totales</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center border-success">
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.CompletedOrders</h5>
+                <p class="card-text text-muted">Órdenes Completadas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center border-secondary">
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.PendingOrders</h5>
+                <p class="card-text text-muted">Órdenes Pendientes</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center border-info">
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.TotalProcesses</h5>
+                <p class="card-text text-muted">Procesos Registrados</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex gap-2 justify-content-center">
+    <a asp-controller="ProductionOrders" asp-action="Create" class="btn btn-primary">+ Nueva Orden de Producción</a>
+    <a asp-controller="ManufacturingProcesses" asp-action="Create" class="btn btn-outline-primary">+ Nuevo Proceso de Fabricación</a>
 </div>

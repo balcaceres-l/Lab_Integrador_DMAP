@@ -1,0 +1,67 @@
+﻿@model lab_integrador.Models.ProductionOrder
+
+@{
+    ViewData["Title"] = "Detalle de Orden de Producción";
+}
+
+<h1>Detalle de Orden de Producción</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card mb-4" style="max-width: 600px;">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Producto</dt>
+            <dd class="col-sm-8">@Model.ProductName</dd>
+
+            <dt class="col-sm-4">Cantidad</dt>
+            <dd class="col-sm-8">@Model.Quantity</dd>
+
+            <dt class="col-sm-4">Fecha de Orden</dt>
+            <dd class="col-sm-8">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4">Estado</dt>
+            <dd class="col-sm-8"><span class="badge bg-info text-dark">@Model.Status</span></dd>
+        </dl>
+    </div>
+</div>
+
+<h3>Procesos Asociados</h3>
+
+<table class="table table-bordered align-middle" style="max-width: 700px;">
+    <thead class="table-light">
+        <tr>
+            <th>Proceso</th>
+            <th>Completado</th>
+            <th>Fecha de Finalización</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var op in Model.OrderProcesses)
+        {
+            <tr>
+                <td>@op.ManufacturingProcess.Name</td>
+                <td>
+                    <form asp-action="ToggleProcessCompletion" method="post" class="d-inline">
+                        <input type="hidden" name="orderId" value="@Model.Id" />
+                        <input type="hidden" name="processId" value="@op.ManufacturingProcessId" />
+                        <input type="hidden" name="isCompleted" value="@(op.IsCompleted ? "false" : "true")" />
+                        <button type="submit" class="btn btn-sm @(op.IsCompleted ? "btn-success" : "btn-outline-secondary")">
+                            @(op.IsCompleted ? "✓ Completado" : "Marcar como completado")
+                        </button>
+                    </form>
+                </td>
+                <td>@(op.CompletedDate?.ToString("dd/MM/yyyy HH:mm") ?? "-")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Editar Orden</a>

@@ -1,0 +1,30 @@
+﻿@model lab_integrador.Models.ProductionOrder
+
+@{
+    ViewData["Title"] = "Eliminar Orden de Producción";
+}
+
+<h1>Eliminar Orden de Producción</h1>
+
+<div class="alert alert-warning">
+    ¿Está seguro de eliminar esta orden? Se eliminarán también sus asociaciones con procesos.
+</div>
+
+<div class="card" style="max-width: 500px;">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Producto</dt>
+            <dd class="col-sm-8">@Model.ProductName</dd>
+            <dt class="col-sm-4">Cantidad</dt>
+            <dd class="col-sm-8">@Model.Quantity</dd>
+            <dt class="col-sm-4">Fecha de Orden</dt>
+            <dd class="col-sm-8">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
